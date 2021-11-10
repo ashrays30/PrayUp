@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PracticeReact",
-    "slug": "PracticeReact",
+    "name": "PrayUp",
+    "slug": "prayup",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

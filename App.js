@@ -1,6 +1,8 @@
 import React from 'react';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Main from './src/Main';
+import ChatScreen from './screens/Chat';
+import LandingPage from './screens/LandingPage';
 
 export default function App() {
   const theme = {

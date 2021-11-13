@@ -9,7 +9,8 @@ import RegisterScreen from '../screens/Register';
 import WelcomeScreen from '../screens/Welcome';
 import ChatScreen from '../screens/Chat';
 import SplashScreen from '../screens/Splash';
-// import WallFeedsScreen from '../screens/WallFeeds'
+import LandingPageScreen from '../screens/LandingPage';
+import WallFeedPostScreen from '../screens/WallFeedsPost';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +41,8 @@ export default function Main() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />
-          {/* <Stack.Screen name="WallFeeds" component={RegisterScreen} /> */}
+          <Stack.Screen name="Landing" component={LandingPageScreen} />
+          <Stack.Screen name="WallPost" component={WallFeedPostScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

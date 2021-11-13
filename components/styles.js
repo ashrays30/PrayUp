@@ -105,3 +105,48 @@ export const RegisterButton = {
 export const ForgotButton = {
   fontSize: 10,
 };
+
+export const CenterText = {
+  marginTop: '50%',
+  textAlign: 'center',
+  fontSize: 30
+}
+
+export const InputField = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: 24,
+  textAlign: 'center',
+  width:'90%',
+  marginBottom: 15,
+
+}
+export const InputWrapper = {
+  flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#2e64e515'
+}
+export const AddImage = {
+  width: '100%',
+    height: 250,
+    marginBottom: 15,
+}
+export const SubmitBtn = {
+  flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#2e64e515',
+    borderRadius: 5,
+    padding: 10
+}
+export const SubmitBtnText = {
+  fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    fontWeight: 'bold',
+    color: '#2e64e5',
+}
+export const StatusWrapper = {
+  justifyContent: 'center',
+    alignItems: 'center'
+}

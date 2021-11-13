@@ -1,38 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, SafeAreaView, KeyboardAvoidingView, View, Text } from 'react-native';
-import { TextInput, Button, TextBox } from 'react-native-paper';
+import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Avatar, Card, Title, Text, Paragraph, Appbar, Button } from 'react-native-paper';
+import Header from './Header';
+import { LoginButton } from './../components/styles';
 
-const WallFeedsScreen = ({ route, navigation }) => {
+const WallFeedsScreen = ({ navigation }) => {
+  const feeds = [
+    {
+      author: 'Ashray Shah',
+      cover: 'https://picsum.photos/700',
+      title: 'Gola Becho',
+      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
+    },
+    {
+      author: 'Shubham Shah',
+      cover: 'https://picsum.photos/600',
+      title: 'Tela Becho',
+      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
+    },
+    {
+      author: 'Vivan',
+      cover: 'https://picsum.photos/500',
+      title: 'Node Becho',
+      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
+    },
+  ];
+
+  const trimContent = (str) => {
+    if (str.length > 27) str = str.substring(0, 30) + ' ...';
+    return str;
+  };
+
   return (
     <View>
-      <View style={StyledContainer}>
-        <StatusBar style="dark" />
-        <View style={InnerContainer}>
-          <View style={{ width: '100%' }}>
-            <TextInput
-              left={<TextInput.Icon name="login" size={25} />}
-              mode={'outlined'}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              style={TextBox}
-            />
-            <TextBox
-              left={<TextInput.Icon name="lock" size={25} />}
-              mode={'outlined'}
-              secureTextEntry={true}
-              value={pass}
-              onChangeText={(text) => setPass(text)}
-              style={TextBox}
-            />
-            <Button style={LoginButton} mode="contained" onPress={() => postFeeds()}>
-              Post Feeds
-            </Button>
-            <View style={FeedCointainer}>
-              {cointainer}
-            </View>
+      <Header navigation={navigation} showBack={false} headingTitle={'Wall Feeds'} />
+      {feeds.map((feed, index) => {
+        return (
+          <View style={{ padding: 10 }} key={index}>
+            <TouchableOpacity>
+              <Card>
+                <Card.Title
+                  subtitle={feed.author}
+                  left={() => (
+                    <Avatar.Text
+                      size={35}
+                      label={feed.author
+                        .match(/(\b\S)?/g)
+                        .join('')
+                        .match(/(^\S|\S$)?/g)
+                        .join('')
+                        .toUpperCase()}
+                    />
+                  )}
+                />
+                <Card.Cover source={{ uri: feed.cover }} />
+                <Card.Content>
+                  <Title>{feed.title}</Title>
+                  <Paragraph>{trimContent(feed.desc)}</Paragraph>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
           </View>
-        </View>
-      </View>
+        );
+      })}
     </View>
   );
 };

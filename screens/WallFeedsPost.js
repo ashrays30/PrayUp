@@ -7,12 +7,11 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { FAB, Portal, Provider } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 
-import storage from '@react-native-firebase/storage';
-import firestore from '@react-native-firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -26,6 +25,8 @@ import {
 } from '../components/styles';
 
 const auth = getAuth();
+const storage = getStorage();
+const db = getFirestore();
 
 const WallFeedPostScreen = () => {
     const [user] = useAuthState(auth);
@@ -34,6 +35,11 @@ const WallFeedPostScreen = () => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [post, setPost] = useState(null);
+  const [fab, setFab] = React.useState({ open: false });
+
+  const onFabChange = ({ open }) => setFab({ open });
+
+  const { open } = fab;
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -64,27 +70,20 @@ const WallFeedPostScreen = () => {
     console.log('Image Url: ', imageUrl);
     console.log('Post: ', post);
 
-    firestore()
-    .collection('posts')
-    .add({
+    await addDoc(collection(db, 'posts'), {
       userId: user.uid,
       post: post,
       postImg: imageUrl,
       postTime: firestore.Timestamp.fromDate(new Date()),
       likes: null,
       comments: null,
-    })
-    .then(() => {
-      console.log('Post Added!');
+    });
+    console.log('Post Added!');
       Alert.alert(
         'Post published!',
         'Your post has been published Successfully!',
       );
       setPost(null);
-    })
-    .catch((error) => {
-      console.log('Something went wrong with added post to firestore.', error);
-    });
   }
 
   const uploadImage = async () => {
@@ -102,11 +101,11 @@ const WallFeedPostScreen = () => {
     setUploading(true);
     setTransferred(0);
 
-    const storageRef = storage().ref(`photos/${filename}`);
-    const task = storageRef.putFile(uploadUri);
+    const storageRef = ref(storage,`photos/${filename}`);
+    const task = uploadBytes(storageRef, uploadUri);
 
     // Set transferred state
-    task.on('state_changed', (taskSnapshot) => {
+    task.then((taskSnapshot) => {
       console.log(
         `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
       );
@@ -120,7 +119,7 @@ const WallFeedPostScreen = () => {
     try {
       await task;
 
-      const url = await storageRef.getDownloadURL();
+      const url = await getDownloadURL(storageRef);
 
       setUploading(false);
       setImage(null);
@@ -161,20 +160,34 @@ const WallFeedPostScreen = () => {
           </SubmitBtn>
         )}
       </InputWrapper>
-      <ActionButton buttonColor="#2e64e5">
-        <ActionButton.Item
-          buttonColor="#9b59b6"
-          title="Take Photo"
-          onPress={takePhotoFromCamera}>
-          <Icon name="camera-outline" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-        <ActionButton.Item
-          buttonColor="#3498db"
-          title="Choose Photo"
-          onPress={choosePhotoFromLibrary}>
-          <Icon name="md-images-outline" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      </ActionButton>
+      <Provider>
+      <Portal>
+        <FAB.Group
+          open={open}
+          icon={open ? 'calendar-today' : 'plus'}
+          actions={[
+            {
+              icon: 'camera-outline',
+              label: 'Take Photo',
+              onPress: () => takePhotoFromCamera(),
+              small: false,
+            },
+            {
+              icon: 'md-images-outlin',
+              label: 'Choose Photo',
+              onPress: () => choosePhotoFromLibrary(),
+              small: false,
+            },
+          ]}
+          onFabChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+            }
+          }}
+        />
+      </Portal>
+    </Provider>
     </View>
   );
 };

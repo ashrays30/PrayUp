@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Appbar, Menu } from 'react-native-paper';
 
-const Header = ({ navigation, showBack, headingTitle }) => {
+const Header = ({ navigation, showBack, headingTitle, feeds }) => {
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -11,18 +11,22 @@ const Header = ({ navigation, showBack, headingTitle }) => {
   return (
     <View>
       <Appbar.Header>
-        {showBack && <Appbar.BackAction
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />}
+        {showBack && (
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        )}
         <Appbar.Content title={headingTitle} />
-        <Appbar.Action
-                icon="plus"
-                onPress={() => {
-                  navigation.navigate('WallPost')
-                }}
-              />
+        {feeds && (
+          <Appbar.Action
+            icon="plus"
+            onPress={() => {
+              navigation.navigate('WallPost');
+            }}
+          />
+        )}
         <View
           style={{
             flexDirection: 'row',
@@ -42,7 +46,12 @@ const Header = ({ navigation, showBack, headingTitle }) => {
               />
             }
           >
-            <Menu.Item onPress={() => {navigation.navigate('Chat')}} title="Support" />
+            <Menu.Item
+              onPress={() => {
+                navigation.navigate('Chat');
+              }}
+              title="Support"
+            />
           </Menu>
         </View>
       </Appbar.Header>

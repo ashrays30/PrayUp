@@ -14,6 +14,7 @@ import {
   RegisterButton,
   TextBox,
   ForgotButton,
+  errorCode,
 } from './../components/styles';
 
 import { Image, Text, View } from 'react-native';
@@ -31,6 +32,7 @@ const app = initializeApp({
 const Login = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
+  const [error, setError] = React.useState('');
 
   const signIn = () => {
     const auth = getAuth();
@@ -41,6 +43,7 @@ const Login = ({ navigation }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setError(errorCode)
         console.log(error.code, error.message)
       });
   };
@@ -78,6 +81,7 @@ const Login = ({ navigation }) => {
           <Button style={RegisterButton} mode="outlined" onPress={() => navigation.navigate('Register')}>
             Create Account
           </Button>
+          <Text style={errorCode}>{error}</Text>
         </View>
       </View>
     </View>

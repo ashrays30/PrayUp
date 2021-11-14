@@ -2,29 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import { Avatar, Card, Title, Text, Paragraph, Appbar, Button } from 'react-native-paper';
 import Header from './Header';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { LoginButton } from './../components/styles';
 
+
+const db = getFirestore();
 const WallFeedsScreen = ({ navigation }) => {
-  const feeds = [
-    {
-      author: 'Ashray Shah',
-      cover: 'https://picsum.photos/700',
-      title: 'Gola Becho',
-      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
-    },
-    {
-      author: 'Shubham Shah',
-      cover: 'https://picsum.photos/600',
-      title: 'Tela Becho',
-      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
-    },
-    {
-      author: 'Vivan',
-      cover: 'https://picsum.photos/500',
-      title: 'Node Becho',
-      desc: 'yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda yadda',
-    },
-  ];
+
+  const postRef = collection(db, 'posts');
+
+  const [posts] = useCollectionData(postRef);
+
+  console.log(posts)
 
   const trimContent = (str) => {
     if (str.length > 27) str = str.substring(0, 30) + ' ...';
@@ -33,18 +23,18 @@ const WallFeedsScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Header navigation={navigation} showBack={false} headingTitle={'Wall Feeds'} />
-      {feeds.map((feed, index) => {
+      <Header navigation={navigation} showBack={false} headingTitle={'Wall Feeds'} feeds={true} />
+      {posts && posts.map((feed, index) => {
         return (
           <View style={{ padding: 10 }} key={index}>
             <TouchableOpacity>
               <Card>
                 <Card.Title
-                  subtitle={feed.author}
+                  subtitle={feed.name}
                   left={() => (
                     <Avatar.Text
                       size={35}
-                      label={feed.author
+                      label={feed.name
                         .match(/(\b\S)?/g)
                         .join('')
                         .match(/(^\S|\S$)?/g)
@@ -53,10 +43,9 @@ const WallFeedsScreen = ({ navigation }) => {
                     />
                   )}
                 />
-                <Card.Cover source={{ uri: feed.cover }} />
+                {feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
                 <Card.Content>
-                  <Title>{feed.title}</Title>
-                  <Paragraph>{trimContent(feed.desc)}</Paragraph>
+                  <Title>{trimContent(feed.post)}</Title>
                 </Card.Content>
               </Card>
             </TouchableOpacity>

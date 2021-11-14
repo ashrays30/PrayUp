@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Button } from 'react-native-paper';
-
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import {
   Colors,
   StyledContainer,
@@ -11,16 +11,37 @@ import {
   PageSubTitle,
   RegisterButton,
   TextBox,
-  ForgotButton
+  ForgotButton,
+  errorCode,
 } from './../components/styles';
 
 import { Image, Text, View } from 'react-native';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [name, setName] = React.useState('');
+  const [error, setError] = React.useState('');
+
+  const registerUser = () => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        updateProfile(user, { displayName: name, phoneNumber: phone }).then(() => {
+          navigation.navigate('Login');
+          console.log(user);
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorCode);
+      });
+  };
+
   return (
     <View style={StyledContainer}>
       <StatusBar style="dark" />
@@ -28,7 +49,7 @@ const Login = ({navigation}) => {
         <Image style={PageLogo} resizeMode="cover" source={require('./../assets/img/app_logo.jpg')} />
         <Text style={PageSubTitle}>Login Into Your Pray Up Account</Text>
         <View style={{ width: '100%' }}>
-        <TextInput
+          <TextInput
             left={<TextInput.Icon name="account" size={25} />}
             mode={'outlined'}
             label="Name"
@@ -70,9 +91,10 @@ const Login = ({navigation}) => {
             onChangeText={(text) => setPhone(text)}
             style={TextBox}
           />
-          <Button style={RegisterButton} mode="outlined" onPress={() => navigation.navigate('Login')}>
+          <Button style={RegisterButton} mode="outlined" onPress={() => registerUser()}>
             Create Account
           </Button>
+          <Text style={errorCode}>{error}</Text>
         </View>
       </View>
     </View>

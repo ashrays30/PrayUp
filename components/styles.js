@@ -150,3 +150,9 @@ export const StatusWrapper = {
   justifyContent: 'center',
     alignItems: 'center'
 }
+
+export const errorCode = {
+  textAlign: 'center',
+  color: 'red',
+  marginTop: 20
+}

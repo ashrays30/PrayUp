@@ -1,14 +1,26 @@
 import React from 'react';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { configureFonts, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Main from './src/Main';
+import { useFonts } from 'expo-font';
 import ChatScreen from './screens/Chat';
 import LandingPage from './screens/LandingPage';
 import Questions from './screens/Questions';
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    'Nunito': require('./assets/fonts/Nunito-Regular.ttf'),
+  });
   const theme = {
     ...DefaultTheme,
     roundness: 2,
+    fonts: configureFonts({
+      web: {
+        regular: {
+          fontFamily: 'Nunito',
+          fontWeight: 'normal',
+        },
+      }
+    }),
     colors: {
       ...DefaultTheme.colors,
       primary: '#4f5abf',

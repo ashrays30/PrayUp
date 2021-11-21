@@ -5,7 +5,7 @@ import { FAB, Card, Avatar } from 'react-native-paper';
 import Header from './Header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, query, onSnapshot, where, updateDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, query, onSnapshot, where } from '@firebase/firestore';
 
 const auth = getAuth();
 const db = getFirestore();

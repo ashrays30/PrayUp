@@ -1,28 +1,30 @@
-import React, { useEffect, useState,useCallback } from 'react';
-import { Platform, SafeAreaView, KeyboardAvoidingView, View, Text } from 'react-native';
-import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Platform, SafeAreaView, KeyboardAvoidingView, View } from 'react-native';
+import { Actions, Bubble, GiftedChat, Send, Avatar as ChatAvatar } from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Avatar } from 'react-native-paper';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getAuth } from 'firebase/auth';
+import { Ionicons } from '@expo/vector-icons';
 import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firestore';
 import Header from './Header';
-import { nanoid } from "nanoid";
+import { nanoid } from 'nanoid';
 
 const auth = getAuth();
 const db = getFirestore();
 
 const randomId = nanoid();
 
-const ChatScreen = ({route, navigation }) => {
+const ChatScreen = ({ route, navigation }) => {
   const [currentUser] = useAuthState(auth);
   const [messages, setMessages] = useState([]);
+
   const room = route.params ? route.params.room : 0;
-  
+
   const roomId = room ? room.id : randomId;
-  const roomRef = doc(db, "rooms", roomId);
-  const roomMessagesRef = collection(db, "rooms", roomId, "messages");
+  const roomRef = doc(db, 'rooms', roomId);
+  const roomMessagesRef = collection(db, 'rooms', roomId, 'messages');
 
   useEffect(() => {
     (async () => {
@@ -32,16 +34,16 @@ const ChatScreen = ({route, navigation }) => {
           email: currentUser.email,
         };
         const userBData = {
-          displayName: "volunteer",
-          email: "volunteer@gmail.com",
+          displayName: 'volunteer',
+          email: 'volunteer@gmail.com',
         };
         const captainData = {
-          displayName: "captain leader",
-          email: "captain@gmail.com",
+          displayName: 'captain leader',
+          email: 'captain@gmail.com',
         };
         const adminData = {
-          displayName: "admin",
-          email: "admin@gmail.com",
+          displayName: 'admin',
+          email: 'admin@gmail.com',
         };
         const roomData = {
           participants: [currUserData, userBData, captainData, adminData],
@@ -60,7 +62,7 @@ const ChatScreen = ({route, navigation }) => {
     const unsubscribe = onSnapshot(roomMessagesRef, (querySnapshot) => {
       const messagesFirestore = querySnapshot
         .docChanges()
-        .filter(({ type }) => type === "added")
+        .filter(({ type }) => type === 'added')
         .map(({ doc }) => {
           const message = doc.data();
           return { ...message, createdAt: message.createdAt.toDate() };
@@ -73,11 +75,9 @@ const ChatScreen = ({route, navigation }) => {
 
   const appendMessages = useCallback(
     (messages) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, messages)
-      );
+      setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
     },
-    [messages]
+    [messages],
   );
 
   console.log(messages);
@@ -126,12 +126,22 @@ const ChatScreen = ({route, navigation }) => {
         <View>
           <MaterialCommunityIcons
             name="send-circle"
-            style={{marginBottom: 5, marginRight: 5}}
+            style={{ marginBottom: 5, marginRight: 5 }}
             size={32}
             color="#2e64e5"
           />
         </View>
       </Send>
+    );
+  };
+
+  const renderAvatar = (props) => {
+    return (
+      <ChatAvatar {...props}>
+        <View>
+        <Avatar.Text size={24} label="XD" />
+        </View>
+      </ChatAvatar>
     );
   };
 
@@ -143,10 +153,17 @@ const ChatScreen = ({route, navigation }) => {
           right: {
             backgroundColor: '#2e64e5',
           },
+          left: {
+            backgroundColor: '#E8E8E8',
+          },
         }}
         textStyle={{
+          left: {
+            fontFamily: 'Nunito',
+          },
           right: {
             color: '#fff',
+            fontFamily: 'Nunito',
           },
         }}
       />
@@ -154,10 +171,8 @@ const ChatScreen = ({route, navigation }) => {
   };
 
   const scrollToBottomComponent = () => {
-    return(
-      <FontAwesome name='angle-double-down' size={22} color='#333' />
-    );
-  }
+    return <FontAwesome name="angle-double-down" size={22} color="#333" />;
+  };
 
   const chat = (
     <GiftedChat
@@ -169,6 +184,20 @@ const ChatScreen = ({route, navigation }) => {
       renderSend={renderSend}
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}
+      renderAvatar={renderAvatar}
+      renderActions={(props) => (
+        <Actions
+          {...props}
+          containerStyle={{
+            position: 'absolute',
+            right: 50,
+            bottom: 5,
+            zIndex: 9999,
+          }}
+          onPressActionButton={() => {}}
+          icon={() => <Ionicons name="attach-outline" size={30} color={'#717171'} />}
+        />
+      )}
     />
   );
 

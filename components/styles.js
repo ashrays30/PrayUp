@@ -142,7 +142,7 @@ export const SubmitBtn = {
 }
 export const SubmitBtnText = {
   fontSize: 18,
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Nunito',
     fontWeight: 'bold',
     color: '#2e64e5',
 }

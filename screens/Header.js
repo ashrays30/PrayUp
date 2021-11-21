@@ -34,25 +34,12 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
             zIndex: 20,
           }}
         >
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchor={
-              <Appbar.Action
-                icon="dots-vertical"
-                onPress={() => {
-                  openMenu();
-                }}
-              />
-            }
-          >
-            <Menu.Item
-              onPress={() => {
-                navigation.navigate('Chat');
-              }}
-              title="Support"
-            />
-          </Menu>
+          <Appbar.Action
+            icon="bell"
+            onPress={() => {
+              ;
+            }}
+          />
         </View>
       </Appbar.Header>
     </View>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { BottomNavigation, Text, Appbar } from 'react-native-paper';
 import WallFeedsScreen from './WallFeeds';
+import Consultanat from './Consultanat';
 import { CenterText } from './../components/styles';
 
 const LandingPage = ({navigation}) => {
@@ -9,9 +10,7 @@ const LandingPage = ({navigation}) => {
 
   const spritualRoute = () => <Text style={CenterText}>Spirituality</Text>;
 
-  const ConsultRoute = () => <Text style={CenterText}>Consultant</Text>;
-
-  const NotifyRoute = () => <Text style={CenterText}>Notification</Text>;
+  const ConsultRoute = () => <Consultanat navigation={navigation}/>;
 
   const ProfileRoute = () => <Text style={CenterText}>Profile</Text>;
 
@@ -20,7 +19,6 @@ const LandingPage = ({navigation}) => {
     { key: 'feeds', title: 'Feeds', icon: 'post-outline' },
     { key: 'spritual', title: 'Spirituality', icon: 'meditation' },
     { key: 'consult', title: 'Consultant', icon: 'account-group' },
-    { key: 'notify', title: 'Notification', icon: 'bell-ring' },
     { key: 'profile', title: 'Profile', icon: 'account' },
   ]);
 
@@ -28,7 +26,6 @@ const LandingPage = ({navigation}) => {
     feeds: FeedsRoute,
     spritual: spritualRoute,
     consult: ConsultRoute,
-    notify: NotifyRoute,
     profile: ProfileRoute,
   });
 

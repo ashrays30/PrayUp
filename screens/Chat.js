@@ -1,24 +1,84 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import { Platform, SafeAreaView, KeyboardAvoidingView, View, Text } from 'react-native';
 import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firestore';
 import Header from './Header';
+import { nanoid } from "nanoid";
 
 const auth = getAuth();
 const db = getFirestore();
 
-const ChatScreen = ({ route, navigation }) => {
+const randomId = nanoid();
+
+const ChatScreen = ({route, navigation }) => {
   const [currentUser] = useAuthState(auth);
+  const [messages, setMessages] = useState([]);
+  const room = route.params ? route.params.room : 0;
+  
+  const roomId = room ? room.id : randomId;
+  const roomRef = doc(db, "rooms", roomId);
+  const roomMessagesRef = collection(db, "rooms", roomId, "messages");
 
-  const messagesRef = collection(db, 'messages');
+  useEffect(() => {
+    (async () => {
+      if (!room) {
+        const currUserData = {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+        };
+        const userBData = {
+          displayName: "volunteer",
+          email: "volunteer@gmail.com",
+        };
+        const captainData = {
+          displayName: "captain leader",
+          email: "captain@gmail.com",
+        };
+        const adminData = {
+          displayName: "admin",
+          email: "admin@gmail.com",
+        };
+        const roomData = {
+          participants: [currUserData, userBData, captainData, adminData],
+          participantsArray: [currUserData.email, userBData.email, captainData.email, adminData.email],
+        };
+        try {
+          await setDoc(roomRef, roomData);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })();
+  }, []);
 
-  const [messages] = useCollectionData(messagesRef, { uid: auth.currentUser.uid });
+  useEffect(() => {
+    const unsubscribe = onSnapshot(roomMessagesRef, (querySnapshot) => {
+      const messagesFirestore = querySnapshot
+        .docChanges()
+        .filter(({ type }) => type === "added")
+        .map(({ doc }) => {
+          const message = doc.data();
+          return { ...message, createdAt: message.createdAt.toDate() };
+        })
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+      appendMessages(messagesFirestore);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const appendMessages = useCallback(
+    (messages) => {
+      setMessages((previousMessages) =>
+        GiftedChat.append(previousMessages, messages)
+      );
+    },
+    [messages]
+  );
 
   console.log(messages);
 
@@ -53,10 +113,11 @@ const ChatScreen = ({ route, navigation }) => {
     };
   };
 
-  const sendMessage = async (message) => {
-    const docRef = await addDoc(collection(db, 'messages'), {
-      ...message[0],
-    });
+  const sendMessage = async (messages = []) => {
+    const writes = messages.map((m) => addDoc(roomMessagesRef, m));
+    const lastMessage = messages[messages.length - 1];
+    writes.push(updateDoc(roomRef, { lastMessage }));
+    await Promise.all(writes);
   };
 
   const renderSend = (props) => {
@@ -100,7 +161,7 @@ const ChatScreen = ({ route, navigation }) => {
 
   const chat = (
     <GiftedChat
-      messages={parse(messages)}
+      messages={messages}
       onSend={sendMessage}
       user={getUser()}
       renderBubble={renderBubble}

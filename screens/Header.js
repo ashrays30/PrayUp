@@ -10,7 +10,7 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
   const closeMenu = () => setVisible(false);
   return (
     <View>
-      <Appbar.Header>
+      <Appbar.Header style={{backgroundColor: "#F6F6F6"}}>
         {showBack && (
           <Appbar.BackAction
             onPress={() => {
@@ -18,7 +18,7 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
             }}
           />
         )}
-        <Appbar.Content title={headingTitle} />
+        <Appbar.Content style={{fontWeight: "bold"}} title={headingTitle} />
         {feeds && (
           <Appbar.Action
             icon="plus"

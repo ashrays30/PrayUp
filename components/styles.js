@@ -77,6 +77,7 @@ export const PageTitle = {
 
 export const TextBox = {
   height: 40,
+  borderRadius: 10
 };
 
 export const PageSubTitle = {

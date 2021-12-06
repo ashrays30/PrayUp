@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Button } from 'react-native-paper';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getFirestore, addDoc, collection, setDoc,doc } from '@firebase/firestore';
 import {
   Colors,
   StyledContainer,
@@ -26,11 +27,21 @@ const Login = ({ navigation }) => {
 
   const registerUser = () => {
     const auth = getAuth();
+    const db = getFirestore();
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        updateProfile(user, { displayName: name, phoneNumber: phone }).then(() => {
+        updateProfile(user, { displayName: name, phoneNumber: phone }).then(async () => {
+          const userRef = doc(db, 'userdata', user.uid);
+          await setDoc(userRef, {
+            uid: user.uid,
+            displayName: user.displayName,
+            phone: phone,
+            imageUrl: '',
+            registerTime: new Date(),
+            type: 'user',
+          });
           navigation.navigate('Login');
           console.log(user);
         });

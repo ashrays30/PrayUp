@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Platform, SafeAreaView, KeyboardAvoidingView, View } from 'react-native';
-import { Actions, Bubble, GiftedChat, Send, Avatar as ChatAvatar } from 'react-native-gifted-chat';
+import { Platform, SafeAreaView, KeyboardAvoidingView, View, Text } from 'react-native';
+import { Actions, Bubble, GiftedChat, Send, Avatar as ChatAvatar, MessageText } from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Avatar } from 'react-native-paper';
@@ -9,12 +9,13 @@ import { getAuth } from 'firebase/auth';
 import { Ionicons } from '@expo/vector-icons';
 import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firestore';
 import Header from './Header';
-import { nanoid } from 'nanoid';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const auth = getAuth();
 const db = getFirestore();
 
-const randomId = nanoid();
+const randomId = uuidv4();
 
 const ChatScreen = ({ route, navigation }) => {
   const [currentUser] = useAuthState(auth);
@@ -182,6 +183,19 @@ const ChatScreen = ({ route, navigation }) => {
       renderBubble={renderBubble}
       alwaysShowSend
       renderSend={renderSend}
+      renderMessageText={(props) => {
+        console.log(props)
+        return <View>
+          <Text style={{
+            marginLeft: 10,
+            marginTop: 10,
+            paddingRight:20,
+            fontWeight: "bold",
+            color: props.position === 'right' ? "#292929" : "grey"
+          }}>{props.currentMessage.user.name}</Text>
+          <MessageText {...props}/>
+        </View>
+      }}
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}
       renderAvatar={renderAvatar}

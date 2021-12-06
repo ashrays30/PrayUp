@@ -35,12 +35,12 @@ const Consultanat = ({ navigation }) => {
 
   return (
     <View>
-      <Header navigation={navigation} showBack={false} headingTitle={'Consultant'} />
+      <Header navigation={navigation} showBack={false} headingTitle={'Pray Up'} />
       <View style={{marginTop:50}}>
           {rooms.map((room, index) => {
               return (
                 <View style={{ padding: 10 }} key={index}>
-                    <Card onPress={() => {console.log("ashray");navigation.navigate('Chat', {room: room})}}>
+                    <Card onPress={() => {navigation.navigate('Chat', {room: room})}}>
                       <Card.Title
                         subtitle={room.lastMessage.text}
                         left={() => (

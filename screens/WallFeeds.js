@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Platform, SafeAreaView, TouchableOpacity, View,ScrollView } from 'react-native';
 import { Avatar, Card, Title, Text, Paragraph, Appbar, Button } from 'react-native-paper';
 import Header from './Header';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { LoginButton } from './../components/styles';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 
 const db = getFirestore();
@@ -21,10 +21,10 @@ const WallFeedsScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Header navigation={navigation} showBack={false} headingTitle={'Wall Feeds'} feeds={true} />
+      <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={true} />
       {posts && posts.map((feed, index) => {
         return (
-          <View style={{ padding: 10 }} key={index}>
+          <ScrollView style={{ padding: 10 }} key={index} contentContainerStyle={{ flexGrow: 1 }}>
             <TouchableOpacity>
               <Card>
                 <Card.Title
@@ -47,7 +47,7 @@ const WallFeedsScreen = ({ navigation }) => {
                 </Card.Content>
               </Card>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         );
       })}
     </View>

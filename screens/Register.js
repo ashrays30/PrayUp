@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
           await setDoc(userRef, {
             uid: user.uid,
             displayName: user.displayName,
+            email: email,
             phone: phone,
             imageUrl: '',
             registerTime: new Date(),

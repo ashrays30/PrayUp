@@ -19,7 +19,7 @@ const Questions = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   fabPlus: {
-    position: 'Relative',
+    position: 'relative',
     margin: 16,
   },
 });

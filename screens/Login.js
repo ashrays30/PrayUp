@@ -16,6 +16,13 @@ import {
   ForgotButton,
   errorCode,
 } from './../components/styles';
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 import { Image, Text, View } from 'react-native';
 
@@ -33,11 +40,21 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [error, setError] = React.useState('');
+  const db = getFirestore();
 
   const signIn = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
+      .then(async(userCredential) => {
+        const userQuery = query(
+          collection(db, "userdata"),
+          where("uid", "==", userCredential.user.uid)
+        );
+        const userData = await getDocs(userQuery);
+        userData.forEach((doc) => {
+          const user = doc.data()
+          AsyncStorage.setItem("UserSession", JSON.stringify(user))
+        });
         navigation.navigate('Landing')
       })
       .catch((error) => {

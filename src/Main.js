@@ -24,6 +24,8 @@ export default function Main() {
         setTimeout(() => {
           setShowSplash(false);
         }, 1000);
+      } else {
+        setShowSplash(false);
       }
     });
   }, []);
@@ -38,10 +40,11 @@ export default function Main() {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="Landing" component={LandingPageScreen} />
+          
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Landing" component={LandingPageScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="WallPost" component={WallFeedPostScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />

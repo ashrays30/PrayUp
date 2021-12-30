@@ -5,12 +5,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Avatar } from 'react-native-paper';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getAuth } from 'firebase/auth';
 import { Ionicons } from '@expo/vector-icons';
-import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc, query } from 'firebase/firestore';
 import Header from './Header';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const auth = getAuth();
 const db = getFirestore();
@@ -18,7 +20,10 @@ const db = getFirestore();
 const randomId = uuidv4();
 
 const ChatScreen = ({ route, navigation }) => {
+  const userRef = query(collection(db, 'userdata'));
+  const [users] = useCollectionData(userRef);
   const [currentUser] = useAuthState(auth);
+  const [currentUserType, setCurrentUseType] = useState("");
   const [messages, setMessages] = useState([]);
 
   const room = route.params ? route.params.room : 0;
@@ -27,28 +32,38 @@ const ChatScreen = ({ route, navigation }) => {
   const roomRef = doc(db, 'rooms', roomId);
   const roomMessagesRef = collection(db, 'rooms', roomId, 'messages');
 
+  const getRandomVolunteer = () => {
+    const allVolunteer = users
+      .filter((u) => u.type === 'Volunteer')
+      .map((u) => ({ displayName: u.displayName, email: u.email.toLowerCase(), type: u.type }));
+    return allVolunteer[Math.floor(Math.random() * allVolunteer.length)];
+  };
+
+  const getAllAdminsAndLeaders = () => {
+    return users.filter((u) => u.type === 'admin' || u.type === 'Chapter Leader').map((u) => ({ displayName: u.displayName, email: u.email.toLowerCase(), type: u.type }))
+  };
+
+  useEffect(() => {
+    AsyncStorage.getItem('UserSession').then((value) => {
+      if (value !== null) {
+        const usr = JSON.parse(value);
+        setCurrentUseType(usr.type)
+      }
+    });
+  }, []);
+
   useEffect(() => {
     (async () => {
-      if (!room) {
+      if (!room && users) {
         const currUserData = {
           displayName: currentUser.displayName,
-          email: currentUser.email,
+          email: currentUser.email.toLowerCase(),
+          type: currentUserType
         };
-        const userBData = {
-          displayName: 'volunteer',
-          email: 'volunteer@gmail.com',
-        };
-        const captainData = {
-          displayName: 'captain leader',
-          email: 'captain@gmail.com',
-        };
-        const adminData = {
-          displayName: 'admin',
-          email: 'admin@gmail.com',
-        };
+        const userBData = getRandomVolunteer();
         const roomData = {
-          participants: [currUserData, userBData, captainData, adminData],
-          participantsArray: [currUserData.email, userBData.email, captainData.email, adminData.email],
+          participants: [...getAllAdminsAndLeaders(), userBData, currUserData],
+          participantsArray: [currUserData.email, userBData.email, ...getAllAdminsAndLeaders().map(u => u.email)],
         };
         try {
           await setDoc(roomRef, roomData);
@@ -57,7 +72,7 @@ const ChatScreen = ({ route, navigation }) => {
         }
       }
     })();
-  }, []);
+  }, [users]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(roomMessagesRef, (querySnapshot) => {
@@ -140,7 +155,7 @@ const ChatScreen = ({ route, navigation }) => {
     return (
       <ChatAvatar {...props}>
         <View>
-        <Avatar.Text size={24} label="XD" />
+          <Avatar.Text size={24} label="XD" />
         </View>
       </ChatAvatar>
     );
@@ -184,17 +199,23 @@ const ChatScreen = ({ route, navigation }) => {
       alwaysShowSend
       renderSend={renderSend}
       renderMessageText={(props) => {
-        console.log(props)
-        return <View>
-          <Text style={{
-            marginLeft: 10,
-            marginTop: 10,
-            paddingRight:20,
-            fontWeight: "bold",
-            color: props.position === 'right' ? "#292929" : "grey"
-          }}>{props.currentMessage.user.name}</Text>
-          <MessageText {...props}/>
-        </View>
+        console.log(props);
+        return (
+          <View>
+            <Text
+              style={{
+                marginLeft: 10,
+                marginTop: 10,
+                paddingRight: 20,
+                fontWeight: 'bold',
+                color: props.position === 'right' ? '#292929' : 'grey',
+              }}
+            >
+              {props.currentMessage.user.name}
+            </Text>
+            <MessageText {...props} />
+          </View>
+        );
       }}
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}

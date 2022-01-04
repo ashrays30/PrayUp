@@ -10,8 +10,7 @@ import { getAuth } from 'firebase/auth';
 import { Ionicons } from '@expo/vector-icons';
 import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc, query } from 'firebase/firestore';
 import Header from './Header';
-import fire from './fire'
-// import 'react-native-get-random-values';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

@@ -1,9 +1,3 @@
-import styled from 'styled-components';
-import { View, Text, Image } from 'react-native';
-import Constants from 'expo-constants';
-
-const StatusBarHeight = Constants.StatusBarHeight;
-
 //colors
 export const Colors = {
   primary: '#ffffff',
@@ -19,7 +13,7 @@ export const Colors = {
 export const StyledContainer = {
   flex: 1,
   padding: 25,
-  paddingTop: StatusBarHeight + 10,
+  paddingTop: 30,
   backgroundColor: Colors.primary,
 };
 

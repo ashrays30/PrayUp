@@ -4,7 +4,6 @@ import { Avatar, Card, Title, Text, Paragraph, Appbar, Button } from 'react-nati
 import Header from './Header';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-// import { ScrollView } from 'react-native-gesture-handler';
 
 
 const db = getFirestore();

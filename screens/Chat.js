@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Platform, SafeAreaView, KeyboardAvoidingView, View, Text } from 'react-native';
 import { Actions, Bubble, GiftedChat, Send, Avatar as ChatAvatar, MessageText, Icon } from 'react-native-gifted-chat';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Avatar } from 'react-native-paper';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -140,8 +140,8 @@ const ChatScreen = ({ route, navigation }) => {
     return (
       <Send {...props}>
         <View>
-          <MaterialCommunityIcons
-            name="send-circle"
+          <FontAwesome
+            name="send"
             style={{ marginBottom: 5, marginRight: 5 }}
             size={32}
             color="#2e64e5"

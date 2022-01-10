@@ -30,7 +30,7 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'right',
+            // justifyContent: 'right',
             zIndex: 20,
           }}
         >

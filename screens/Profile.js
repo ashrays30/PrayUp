@@ -14,7 +14,7 @@ const ProfileScreen = ({ navigation }) => {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
+          // justifyContent: 'center',
           alignItems: 'center',
           marginTop: '30%',
         }}

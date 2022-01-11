@@ -23,7 +23,7 @@ const ChatScreen = ({ route, navigation }) => {
   const userRef = query(collection(db, 'userdata'));
   const [users] = useCollectionData(userRef);
   const [currentUser] = useAuthState(auth);
-  const [currentUserType, setCurrentUseType] = useState("");
+  const [currentUserType, setCurrentUseType] = useState('');
   const [messages, setMessages] = useState([]);
 
   const room = route.params ? route.params.room : 0;
@@ -40,14 +40,16 @@ const ChatScreen = ({ route, navigation }) => {
   };
 
   const getAllAdminsAndLeaders = () => {
-    return users.filter((u) => u.type === 'admin' || u.type === 'Chapter Leader').map((u) => ({ displayName: u.displayName, email: u.email.toLowerCase(), type: u.type }))
+    return users
+      .filter((u) => u.type === 'admin' || u.type === 'Chapter Leader')
+      .map((u) => ({ displayName: u.displayName, email: u.email.toLowerCase(), type: u.type }));
   };
 
   useEffect(() => {
     AsyncStorage.getItem('UserSession').then((value) => {
       if (value !== null) {
         const usr = JSON.parse(value);
-        setCurrentUseType(usr.type)
+        setCurrentUseType(usr.type);
       }
     });
   }, []);
@@ -58,17 +60,17 @@ const ChatScreen = ({ route, navigation }) => {
         const currUserData = {
           displayName: currentUser.displayName,
           email: currentUser.email.toLowerCase(),
-          type: currentUserType
+          type: currentUserType,
         };
         const userBData = getRandomVolunteer();
         const roomData = {
           participants: [...getAllAdminsAndLeaders(), userBData, currUserData],
-          participantsArray: [currUserData.email, userBData.email, ...getAllAdminsAndLeaders().map(u => u.email)],
+          participantsArray: [currUserData.email, userBData.email, ...getAllAdminsAndLeaders().map((u) => u.email)],
         };
         try {
           await setDoc(roomRef, roomData);
         } catch (error) {
-          console.log(error);
+          console.error('error', error);
         }
       }
     })();
@@ -140,12 +142,7 @@ const ChatScreen = ({ route, navigation }) => {
     return (
       <Send {...props}>
         <View>
-          <FontAwesome
-            name="send"
-            style={{ marginBottom: 5, marginRight: 5 }}
-            size={32}
-            color="#2e64e5"
-          />
+          <FontAwesome name="send" style={{ marginBottom: 5, marginRight: 5 }} size={32} color="#2e64e5" />
         </View>
       </Send>
     );
@@ -199,7 +196,7 @@ const ChatScreen = ({ route, navigation }) => {
       alwaysShowSend
       renderSend={renderSend}
       renderMessageText={(props) => {
-        console.log(props);
+        console.log('props', props);
         return (
           <View>
             <Text
@@ -238,8 +235,8 @@ const ChatScreen = ({ route, navigation }) => {
 
   if (Platform.OS === 'android') {
     return (
-      <View>
-        <Header navigation={navigation} goBack={true} />
+      <View style={{ flex: 1 }}>
+        <Header navigation={navigation} showBack={true} headingTitle={'Chat'} />
         <KeyboardAvoidingView style={{ flex: 1 }} behaviour="padding" keyboardVerticalOffset={30} enabled>
           {chat}
         </KeyboardAvoidingView>
@@ -251,6 +248,7 @@ const ChatScreen = ({ route, navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <Header navigation={navigation} showBack={true} headingTitle={'Chat'} />
       {chat}
+      {/* <Text>{roomId}</Text> */}
     </SafeAreaView>
   );
 };

@@ -14,6 +14,7 @@ const WallFeedsScreen = ({ navigation }) => {
   const [posts] = useCollectionData(postRef);
 
   const trimContent = (str) => {
+    if(!str) return "";
     if (str.length > 27) str = str.substring(0, 30) + ' ...';
     return str;
   };

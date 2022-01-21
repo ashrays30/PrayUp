@@ -16,13 +16,7 @@ import {
   ForgotButton,
   errorCode,
 } from './../components/styles';
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 import { Image, Text, View } from 'react-native';
 
@@ -45,23 +39,20 @@ const Login = ({ navigation }) => {
   const signIn = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, pass)
-      .then(async(userCredential) => {
-        const userQuery = query(
-          collection(db, "userdata"),
-          where("uid", "==", userCredential.user.uid)
-        );
+      .then(async (userCredential) => {
+        const userQuery = query(collection(db, 'userdata'), where('uid', '==', userCredential.user.uid));
         const userData = await getDocs(userQuery);
         userData.forEach((doc) => {
-          const user = doc.data()
-          AsyncStorage.setItem("UserSession", JSON.stringify(user))
+          const user = doc.data();
+          AsyncStorage.setItem('UserSession', JSON.stringify(user));
         });
-        navigation.navigate('Landing')
+        navigation.navigate('Landing');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorCode)
-        console.log(error.code, error.message)
+        setError(errorCode);
+        console.log(error.code, error.message);
       });
   };
 
@@ -98,6 +89,12 @@ const Login = ({ navigation }) => {
           <Button style={RegisterButton} mode="outlined" onPress={() => navigation.navigate('Register')}>
             Create Account
           </Button>
+          <Button
+            icon="google"
+            mode="outlined"
+            style={{marginTop: 10}}
+            onPress={() => {}}
+          >Sign In With Google</Button>
           <Text style={errorCode}>{error}</Text>
         </View>
       </View>

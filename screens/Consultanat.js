@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Image, View, StyleSheet, useWindowDimensions } from 'react-native';
-import { FAB, Card, Avatar } from 'react-native-paper';
+import { FAB, Card, Avatar, Portal, Provider } from 'react-native-paper';
 import Header from './Header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
@@ -19,6 +19,11 @@ const Consultanat = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [routes, setRoute] = useState([]);
   const layout = useWindowDimensions();
+  const [fabState, setFabState] = React.useState({ open: false });
+
+  const onStateChange = ({ open }) => setFabState({ open });
+
+  const { open } = fabState;
 
   const FirstRoute = () => (
     <View style={{ marginTop: 10 }}>
@@ -137,7 +142,33 @@ const Consultanat = ({ navigation }) => {
           initialLayout={{ width: layout.width }}
         />
       )}
-      <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} />
+      {/* <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} /> */}
+      <Provider>
+      <Portal>
+        <FAB.Group
+          open={open}
+          icon={open ? 'plus' : 'plus'}
+          actions={[
+            {
+              icon: 'help-circle-outline',
+              label: 'Pray Up for Meditation',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Pray Up for Focous',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Pray Up for Marrige',
+              onPress: () => navigation.navigate('Chat'),
+            }
+          ]}
+          onStateChange={onStateChange}
+        />
+      </Portal>
+    </Provider>
     </View>
   );
 };

@@ -28,7 +28,7 @@ const WallFeedsScreen = ({ navigation }) => {
         {posts &&
           posts.map((feed, index) => {
             return (
-              <TouchableOpacity>
+              <TouchableOpacity key={`touchable${index}`}>
                 <Card>
                   <Card.Title
                     subtitle={feed.name}

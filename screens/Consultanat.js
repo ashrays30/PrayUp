@@ -151,17 +151,22 @@ const Consultanat = ({ navigation }) => {
           actions={[
             {
               icon: 'help-circle-outline',
-              label: 'Pray Up for Meditation',
+              label: 'Prayer for Health',
               onPress: () => navigation.navigate('Chat'),
             },
             {
               icon: 'help-circle-outline',
-              label: 'Pray Up for Focous',
+              label: 'Prayer for Success',
               onPress: () => navigation.navigate('Chat'),
             },
             {
               icon: 'help-circle-outline',
-              label: 'Pray Up for Marrige',
+              label: 'Prayer for Overrall Wellbeing',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Prayer for Wisdom',
               onPress: () => navigation.navigate('Chat'),
             }
           ]}

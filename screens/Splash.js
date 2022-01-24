@@ -8,7 +8,7 @@ const Splash = () => {
     <View style={{ flex: 1, justifyContent: 'flex-start' }}>
       <Image
         style={{ width: '100%', height: height / 2, marginVertical: height / 4 }}
-        source={require('./../assets/img/app_logo.jpg')}
+        source={require('./../assets/img/app_logo.png')}
         resizeMode="contain"
         resizeMethod="resize"
       />

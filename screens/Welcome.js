@@ -18,14 +18,11 @@ const Welcome = ({ navigation }) => {
     const [counter, setCounter] = React.useState(0);
     const headingList = ['Track Your Activity', 'Plan To Meditate', 'Daily Insights']
     const textList = [
-        `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum`,
+        `Our/This app will help you track your goals and how they align to your path and the daily actions you will take to get there`,
 
-        `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam 
-        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt`,
+        `We believe that prayer changes everything. Get help with how to pray from experts around world with live coaching and guided sessions.`,
 
-        `Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos, que añada cerveza al whisky.
-         Jovencillo emponzoñado de whisky, ¡qué figurota exhibes! La cigüeña tocaba cada vez mejor el`
+        `Life should not be boring. Connect with our worldwide praying community and find out how prayer is transforming lives, families and nations!`
     ]
 
     const dotStyle = {color: "black"}

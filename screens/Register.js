@@ -58,7 +58,7 @@ const Login = ({ navigation }) => {
     <View style={StyledContainer}>
       <StatusBar style="dark" />
       <View style={InnerContainer}>
-        <Image style={PageLogo} resizeMode="cover" source={require('./../assets/img/app_logo.jpg')} />
+        <Image style={PageLogo} resizeMode="cover" source={require('./../assets/img/app_logo.png')} />
         <Text style={PageSubTitle}>Login Into Your Pray Up Account</Text>
         <View style={{ width: '100%' }}>
           <TextInput

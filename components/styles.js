@@ -57,7 +57,7 @@ export const WelcomeButton = {
 
 export const PageLogo = {
   width: 200,
-  height: 250,
+  height: 200,
   marginTop: 30,
 };
 

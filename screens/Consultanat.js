@@ -135,41 +135,36 @@ const Consultanat = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <Header navigation={navigation} showBack={false} headingTitle={'Pray Up'} />
       <Provider>
-        {!!routes.length && (
-          <TabView
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
-          />
-        )}
-        {/* <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} /> */}
-        <Portal>
-          <FAB.Group
-            open={open}
-            icon={open ? 'close' : 'plus'}
-            color="#000000"
-            actions={[
-              {
-                icon: 'help-circle-outline',
-                label: 'Pray Up for Meditation',
-                onPress: () => navigation.navigate('Chat'),
-              },
-              {
-                icon: 'help-circle-outline',
-                label: 'Pray Up for Focous',
-                onPress: () => navigation.navigate('Chat'),
-              },
-              {
-                icon: 'help-circle-outline',
-                label: 'Pray Up for Marrige',
-                onPress: () => navigation.navigate('Chat'),
-              },
-            ]}
-            onStateChange={onStateChange}
-          />
-        </Portal>
-      </Provider>
+      <Portal>
+        <FAB.Group
+          open={open}
+          icon={open ? 'plus' : 'plus'}
+          actions={[
+            {
+              icon: 'help-circle-outline',
+              label: 'Prayer for Health',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Prayer for Success',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Prayer for Overrall Wellbeing',
+              onPress: () => navigation.navigate('Chat'),
+            },
+            {
+              icon: 'help-circle-outline',
+              label: 'Prayer for Wisdom',
+              onPress: () => navigation.navigate('Chat'),
+            }
+          ]}
+          onStateChange={onStateChange}
+        />
+      </Portal>
+    </Provider>
     </View>
   );
 };

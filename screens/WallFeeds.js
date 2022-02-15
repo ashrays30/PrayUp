@@ -21,7 +21,7 @@ const WallFeedsScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={true} />
+      <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={false} />
       {posts && posts.map((feed, index) => {
         return (
           <ScrollView style={{ padding: 10 }} key={index} contentContainerStyle={{ flexGrow: 1 }}>

@@ -175,7 +175,7 @@ const ChatScreen = ({ route, navigation }) => {
   const renderAvatar = () => {
     return (
       <Avatar.Image
-        size={40}
+        size={50}
         source={require('./../assets/users-icons/users-1.svg')}
         style={{ backgroundColor: 'white' }}
       />

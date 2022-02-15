@@ -12,44 +12,42 @@ const WallFeedsScreen = ({ navigation }) => {
   const [posts] = useCollectionData(postRef);
 
   const trimContent = (str) => {
-    if(!str) return "";
+    if (!str) return '';
     if (str.length > 27) str = str.substring(0, 30) + ' ...';
     return str;
   };
 
   return (
     <View>
-      <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={true} />
-      <ScrollView
-        style={{ padding: 10, marginBottom: 90 }}
-        key={'feedScrollView'}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
+      <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={false} />
+      <ScrollView style={{ marginBottom:92}}>
         {posts &&
           posts.map((feed, index) => {
             return (
-              <TouchableOpacity key={`touchable${index}`}>
-                <Card>
-                  <Card.Title
-                    subtitle={feed.name}
-                    left={() => (
-                      <Avatar.Text
-                        size={35}
-                        label={feed.name
-                          .match(/(\b\S)?/g)
-                          .join('')
-                          .match(/(^\S|\S$)?/g)
-                          .join('')
-                          .toUpperCase()}
-                      />
-                    )}
-                  />
-                  {feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
-                  <Card.Content>
-                    <Title>{trimContent(feed.post)}</Title>
-                  </Card.Content>
-                </Card>
-              </TouchableOpacity>
+              <View style={{ padding: 10 }} key={index} contentContainerStyle={{ flexGrow: 1 }}>
+                <TouchableOpacity>
+                  <Card>
+                    <Card.Title
+                      subtitle={feed.name}
+                      left={() => (
+                        <Avatar.Text
+                          size={35}
+                          label={feed.name
+                            .match(/(\b\S)?/g)
+                            .join('')
+                            .match(/(^\S|\S$)?/g)
+                            .join('')
+                            .toUpperCase()}
+                        />
+                      )}
+                    />
+                    {feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
+                    <Card.Content>
+                      <Title>{trimContent(feed.post)}</Title>
+                    </Card.Content>
+                  </Card>
+                </TouchableOpacity>
+              </View>
             );
           })}
       </ScrollView>

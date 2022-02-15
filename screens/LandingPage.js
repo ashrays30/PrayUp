@@ -6,16 +6,16 @@ import Consultanat from './Consultanat';
 import ProfileScreen from './Profile';
 import { CenterText } from './../components/styles';
 
-const LandingPage = ({navigation}) => {
-  const FeedsRoute = () => <WallFeedsScreen navigation={navigation}/>;
+const LandingPage = ({ navigation }) => {
+  const FeedsRoute = () => <WallFeedsScreen navigation={navigation} />;
 
   const spritualRoute = () => <Text style={CenterText}>Flow</Text>;
 
-  const ConsultRoute = () => <Consultanat navigation={navigation}/>;
+  const ConsultRoute = () => <Consultanat navigation={navigation} />;
 
   const TrackRoute = () => <Text style={CenterText}>Track Your Progress</Text>;
 
-  const ProfileRoute = () => <ProfileScreen navigation={navigation}/>;
+  const ProfileRoute = () => <ProfileScreen navigation={navigation} />;
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -34,13 +34,17 @@ const LandingPage = ({navigation}) => {
     profile: ProfileRoute,
   });
 
-  return <BottomNavigation
-    navigationState={{ index, routes }}
-    onIndexChange={setIndex}
+  return (
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
     renderScene={renderScene} 
-    activeColor={"#000000"}
-    inactiveColor={"grey"}
-    />;
+      renderScene={renderScene}
+      activeColor={'#000000'}
+      inactiveColor={'grey'}
+    />
+  );
 };
 
 export default LandingPage;

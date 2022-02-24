@@ -79,7 +79,7 @@ const ChatScreen = ({ route, navigation }) => {
         try {
           await setDoc(roomRef, roomData);
         } catch (error) {
-          console.log(error);
+          console.error('error', error);
         }
       }
     })();
@@ -177,7 +177,7 @@ const ChatScreen = ({ route, navigation }) => {
       <Avatar.Image
         size={50}
         source={require('./../assets/users-icons/users-1.svg')}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: 'lightgrey' }}
       />
     );
   };
@@ -260,10 +260,10 @@ const ChatScreen = ({ route, navigation }) => {
 
   if (Platform.OS === 'android') {
     return (
-      <View>
-        <Header navigation={navigation} goBack={true} />
+      <View style={{ flex: 1 }}>
+        <Header navigation={navigation} showBack={true}  headingTitle={'Chat'}/>
         <ImageBackground resizeMode="cover" source={require('./../assets/img/chat_back.jpg')} style={{ flex: 1 }}>
-          <KeyboardAvoidingView style={{ flex: 1 }} behaviour="padding" keyboardVerticalOffset={30} enabled>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={30} enabled>
             {chat}
           </KeyboardAvoidingView>
         </ImageBackground>

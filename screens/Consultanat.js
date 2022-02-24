@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image, View, StyleSheet, useWindowDimensions } from 'react-native';
+import { ScrollView, View, StyleSheet, useWindowDimensions } from 'react-native';
 import { FAB, Card, Avatar, Portal, Provider } from 'react-native-paper';
 import Header from './Header';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -26,7 +26,7 @@ const Consultanat = ({ navigation }) => {
   const { open } = fabState;
 
   const FirstRoute = () => (
-    <View style={{ marginTop: 10 }}>
+    <ScrollView style={{ marginTop: 10 }}>
       {rooms
         .filter((r) => !r.type)
         .map((room, index) => {
@@ -55,11 +55,11 @@ const Consultanat = ({ navigation }) => {
             </View>
           );
         })}
-    </View>
+    </ScrollView>
   );
 
   const SecondRoute = () => (
-    <View style={{ marginTop: 10 }}>
+    <ScrollView style={{ marginTop: 10 }}>
       {groups.map((group, index) => {
         return (
           <View style={{ padding: 10 }} key={index}>
@@ -87,7 +87,7 @@ const Consultanat = ({ navigation }) => {
           </View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 
   const renderScene = SceneMap({
@@ -132,49 +132,49 @@ const Consultanat = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Header navigation={navigation} showBack={false} headingTitle={'Pray Up'} />
-      {!!routes.length && (
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-        />
-      )}
-      {/* <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} /> */}
-      <Provider>
-      <Portal>
-        <FAB.Group
-          open={open}
-          icon={open ? 'plus' : 'plus'}
-          actions={[
-            {
-              icon: 'help-circle-outline',
-              label: 'Prayer for Health',
-              onPress: () => navigation.navigate('Chat'),
-            },
-            {
-              icon: 'help-circle-outline',
-              label: 'Prayer for Success',
-              onPress: () => navigation.navigate('Chat'),
-            },
-            {
-              icon: 'help-circle-outline',
-              label: 'Prayer for Overrall Wellbeing',
-              onPress: () => navigation.navigate('Chat'),
-            },
-            {
-              icon: 'help-circle-outline',
-              label: 'Prayer for Wisdom',
-              onPress: () => navigation.navigate('Chat'),
-            }
-          ]}
-          onStateChange={onStateChange}
-        />
-      </Portal>
+    <Provider>
+      <View style={{ flex: 1 }}>
+        <Header navigation={navigation} showBack={false} headingTitle={'Pray Up'} />
+        {!!routes.length && (
+          <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+          />
+        )}
+        {/* <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} /> */}
+        <Portal>
+          <FAB.Group
+            open={open}
+            icon={open ? 'plus' : 'plus'}
+            actions={[
+              {
+                icon: 'help-circle-outline',
+                label: 'Prayer for Health',
+                onPress: () => navigation.navigate('Chat'),
+              },
+              {
+                icon: 'help-circle-outline',
+                label: 'Prayer for Success',
+                onPress: () => navigation.navigate('Chat'),
+              },
+              {
+                icon: 'help-circle-outline',
+                label: 'Prayer for Overrall Wellbeing',
+                onPress: () => navigation.navigate('Chat'),
+              },
+              {
+                icon: 'help-circle-outline',
+                label: 'Prayer for Wisdom',
+                onPress: () => navigation.navigate('Chat'),
+              },
+            ]}
+            onStateChange={onStateChange}
+          />
+        </Portal>
+      </View>
     </Provider>
-    </View>
   );
 };
 

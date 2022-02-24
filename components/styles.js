@@ -48,7 +48,7 @@ export const WelcomeButton = {
   backgroundColor: Colors.WelcomeButton,
   borderRadius: 10,
   height: 40,
-  justifyContent: 'center',
+  // justifyContent: 'center',
   width: 180,
   marginTop: 20
 };
@@ -108,7 +108,7 @@ export const CenterText = {
 }
 
 export const InputField = {
-  justifyContent: 'center',
+  // justifyContent: 'center',
   alignItems: 'center',
   fontSize: 24,
   textAlign: 'center',
@@ -118,7 +118,7 @@ export const InputField = {
 }
 export const InputWrapper = {
   flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     backgroundColor: '#2e64e515'
@@ -130,7 +130,7 @@ export const AddImage = {
 }
 export const SubmitBtn = {
   flexDirection: 'row',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     backgroundColor: '#2e64e515',
     borderRadius: 5,
     padding: 10
@@ -142,7 +142,7 @@ export const SubmitBtnText = {
     color: '#2e64e5',
 }
 export const StatusWrapper = {
-  justifyContent: 'center',
+  // justifyContent: 'center',
     alignItems: 'center'
 }
 

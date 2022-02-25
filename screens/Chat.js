@@ -158,6 +158,8 @@ const ChatScreen = ({ route, navigation }) => {
           borderRadius: 50,
           // width: "80%",
           padding: 0,
+          marginBottom:6,
+          elevation:1,
         }}
       />
     );
@@ -165,9 +167,13 @@ const ChatScreen = ({ route, navigation }) => {
 
   const renderSend = (props) => {
     return (
-      <Send {...props}>
+      <Send {...props}
+      containerStyle={{
+        elevation:0,
+      }}
+      >
         <View>
-          <MaterialCommunityIcons name="send" style={{ marginBottom: 5, marginRight: 5 }} size={32} color="#2e64e5" />
+          <MaterialCommunityIcons name="send" style={{ marginBottom: 5, marginRight: 5, }} size={32} color="#2e64e5" />
         </View>
       </Send>
     );

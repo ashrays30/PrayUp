@@ -152,7 +152,7 @@ const ChatScreen = ({ route, navigation }) => {
       <InputToolbar
         {...props}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: '#ffffff',
           borderTopColor: '#E8E8E8',
           borderTopWidth: 1,
           borderRadius: 50,
@@ -195,14 +195,14 @@ const ChatScreen = ({ route, navigation }) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#808080',
+            backgroundColor: '#491849',
             borderBottomRightRadius: 0,
             borderBottomLeftRadius: 15,
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
           },
           left: {
-            backgroundColor: '#F9F5F0',
+            backgroundColor: '#784179',
             borderBottomRightRadius: 15,
             borderBottomLeftRadius: 15,
             borderTopRightRadius: 15,
@@ -237,7 +237,8 @@ const ChatScreen = ({ route, navigation }) => {
                 marginTop: 10,
                 paddingRight: 20,
                 fontWeight: 'bold',
-                color: props.position === 'right' ? '#292929' : 'grey',
+                fontSize:13,
+                color: props.position === 'right' ? '#ffc300' : '#95f0ff',
               }}
             >
               {props.currentMessage.user.name}
@@ -249,19 +250,19 @@ const ChatScreen = ({ route, navigation }) => {
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}
       renderAvatar={renderAvatar}
-      // renderActions={(props) => (
-      //   <Actions
-      //     {...props}
-      //     containerStyle={{
-      //       position: 'absolute',
-      //       right: 50,
-      //       bottom: 5,
-      //       zIndex: 9999,
-      //     }}
-      //     onPressActionButton={() => {}}
-      //     icon={() => <Ionicons name="attach-outline" size={30} color={'#717171'} />}
-      //   />
-      // )}
+      renderActions={(props) => (
+        <Actions
+          {...props}
+          containerStyle={{
+            position: 'absolute',
+            right: 50,
+            bottom: 5,
+            zIndex: 9999,
+          }}
+          onPressActionButton={() => {}}
+          icon={() => <Ionicons name="attach-outline" size={30} color={'#717171'} />}
+        />
+      )}
     />
   );
 

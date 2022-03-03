@@ -32,9 +32,11 @@
     "react-native-paper": "^4.9.2",
     "react-native-screens": "^3.9.0",
     "react-native-tab-view": "^3.1.1",
+    "react-native-video": "^5.2.0",
     "react-native-web": "^0.17.5",
     "styled-components": "^5.3.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "expo-av": "~9.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

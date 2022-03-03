@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, View, StyleSheet, useWindowDimensions } from 'react-native';
+import { ScrollView, View, StyleSheet, useWindowDimensions,Image } from 'react-native';
 import { FAB, Card, Avatar, Portal, Provider } from 'react-native-paper';
 import Header from './Header';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -8,6 +8,8 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, query, onSnapshot, where } from '@firebase/firestore';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GlobalStyle from '../components/GlobalStyles.js';
+import { TabBar } from 'react-native-tab-view';
 
 const auth = getAuth();
 const db = getFirestore();
@@ -31,17 +33,21 @@ const Consultanat = ({ navigation }) => {
         .filter((r) => !r.type)
         .map((room, index) => {
           return (
-            <View style={{ padding: 10 }} key={index}>
+            <View style={{ paddingLeft: 8,paddingRight:8,marginBottom:10,}} key={index}>
+              {/* <Image source={require('./../assets/img/app_logo.png')}></Image> */}
               <Card
                 onPress={() => {
                   navigation.navigate('Chat', { room: room });
                 }}
+                style={GlobalStyle.cardcustom}
               >
                 <Card.Title
                   subtitle={room.lastMessage.text}
+                  subtitleStyle={GlobalStyle.cardsubtitle} 
                   left={() => (
                     <Avatar.Text
-                      size={35}
+                      size={40}
+                      style={GlobalStyle.avatarlabel}
                       label={room.userB.displayName
                         .match(/(\b\S)?/g)
                         .join('')
@@ -67,13 +73,16 @@ const Consultanat = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate('Chat', { room: group });
               }}
+              style={GlobalStyle.cardcustom}
             >
               <Card.Title
                 title={group.groupName}
                 subtitle={group.lastMessage ? group.lastMessage.text : ''}
+                subtitleStyle={GlobalStyle.cardsubtitle} 
                 left={() => (
                   <Avatar.Text
-                    size={35}
+                   size={40}
+                   style={GlobalStyle.avatarlabel}
                     label={group.groupName
                       .match(/(\b\S)?/g)
                       .join('')
@@ -133,41 +142,58 @@ const Consultanat = ({ navigation }) => {
 
   return (
     <Provider>
-      <View style={{ flex: 1 }}>
+      <View style={[{ flex: 1},GlobalStyle.bg_purple]}>
         <Header navigation={navigation} showBack={false} headingTitle={'Pray Up'} />
         {!!routes.length && (
           <TabView
+            //renderTabBar={() => null}
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={{ width: layout.width }}
+            //tab
+            //style={{backgroundColor: 'white'}}
           />
         )}
         {/* <FAB style={styles.fabPlus} icon="plus" onPress={() => navigation.navigate('Questions')} /> */}
-        <Portal>
+        <Portal style={{position:'relative',}}>
+          <Image source={require('./../assets/img/plus.png')} style={GlobalStyle.fabimage}></Image>
           <FAB.Group
             open={open}
-            icon={open ? 'plus' : 'plus'}
+            
+            //icon={open ? 'minus' : 'plus'}
+           // icon={open ? 'minus' : 'plus'}
+           //style={{position:'absolute',bottom:0,}}
+           
+            fabStyle={{backgroundColor:'transparent',position:'relative',right:5,bottom:-2,marginBottom:80,elevation:0,}}
             actions={[
               {
-                icon: 'help-circle-outline',
+                icon: require('./../assets/img/plus.png'),
                 label: 'Prayer for Health',
                 onPress: () => navigation.navigate('Chat'),
+                labelStyle:{backgroundColor:'#e7327c',},
+                labelTextColor:'white',
               },
               {
-                icon: 'help-circle-outline',
+                icon: require('./../assets/img/plus.png'),
                 label: 'Prayer for Success',
                 onPress: () => navigation.navigate('Chat'),
+                labelStyle:{backgroundColor:'#e7327c',},
+                labelTextColor:'white',
               },
               {
-                icon: 'help-circle-outline',
+                icon: require('./../assets/img/plus.png'),
                 label: 'Prayer for Overrall Wellbeing',
                 onPress: () => navigation.navigate('Chat'),
+                labelStyle:{backgroundColor:'#e7327c',},
+                labelTextColor:'white',
               },
               {
-                icon: 'help-circle-outline',
+                icon: require('./../assets/img/plus.png'),
                 label: 'Prayer for Wisdom',
                 onPress: () => navigation.navigate('Chat'),
+                labelStyle:{backgroundColor:'#e7327c',},
+                labelTextColor:'white',
               },
             ]}
             onStateChange={onStateChange}
@@ -184,6 +210,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 20,
     bottom: 0,
+    //color:'#ffffff',
   },
 });
 

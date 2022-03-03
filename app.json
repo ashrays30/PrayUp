@@ -4,7 +4,7 @@
     "slug": "prayup",
     "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/img/app_logo.png",
+    "icon": "./assets/img/lgo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

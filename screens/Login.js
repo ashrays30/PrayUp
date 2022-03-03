@@ -19,6 +19,7 @@ import {
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 import { Image, Text, View } from 'react-native';
+import GlobalStyle from '../components/GlobalStyles.js';
 
 const app = initializeApp({
   apiKey: 'AIzaSyCbAu78CKZIFUqVhGurZxXfs0tYjv7M080',
@@ -57,7 +58,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={StyledContainer}>
+    <View style={[StyledContainer,{paddingLeft:25,paddingRight:25,backgroundColor:'#ffffff',flex:1,paddingTop:90,}]}>
       <StatusBar style="dark" />
       <View style={InnerContainer}>
         <Image style={PageLogo} resizeMode="cover" source={require('./../assets/img/app_logo.png')} />
@@ -69,7 +70,7 @@ const Login = ({ navigation }) => {
             label="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
-            style={TextBox}
+            style={[TextBox,{borderColor:'#fcfcfc',borderWidth:0.5}]}
           />
           <TextInput
             left={<TextInput.Icon name="lock" size={25} />}

@@ -28,7 +28,7 @@ export default function Main() {
       if (value == null) {
         setTimeout(() => {
           setShowSplash(false);
-        }, 1000);
+        }, 7000);
         setUserLoginSession(false)
       } else {
         setShowSplash(false);

@@ -153,13 +153,16 @@ const ChatScreen = ({ route, navigation }) => {
         {...props}
         containerStyle={{
           backgroundColor: '#ffffff',
-          borderTopColor: '#E8E8E8',
-          borderTopWidth: 1,
+          // borderTopColor: '#E8E8E8',
+          // borderTopWidth: 1,
           borderRadius: 50,
           // width: "80%",
           padding: 0,
           marginBottom:6,
-          elevation:1,
+          //marginTop:10,
+          marginLeft:6,
+          marginRight:6,
+          //elevation:1,
         }}
       />
     );
@@ -173,7 +176,7 @@ const ChatScreen = ({ route, navigation }) => {
       }}
       >
         <View>
-          <MaterialCommunityIcons name="send" style={{ marginBottom: 5, marginRight: 5, }} size={32} color="#2e64e5" />
+          <MaterialCommunityIcons name="send" style={{ marginBottom: 8, marginRight: 5, }} size={30} color="#ff7816" />
         </View>
       </Send>
     );
@@ -202,7 +205,7 @@ const ChatScreen = ({ route, navigation }) => {
             borderTopLeftRadius: 15,
           },
           left: {
-            backgroundColor: '#784179',
+            backgroundColor: '#e7327c',
             borderBottomRightRadius: 15,
             borderBottomLeftRadius: 15,
             borderTopRightRadius: 15,
@@ -238,12 +241,12 @@ const ChatScreen = ({ route, navigation }) => {
                 paddingRight: 20,
                 fontWeight: 'bold',
                 fontSize:13,
-                color: props.position === 'right' ? '#ffc300' : '#95f0ff',
+                color: props.position === 'right' ? '#ffc300' : '#ffc300',
               }}
             >
               {props.currentMessage.user.name}
             </Text>
-            <MessageText {...props} />
+            <MessageText {...props}/>
           </View>
         );
       }}
@@ -268,13 +271,15 @@ const ChatScreen = ({ route, navigation }) => {
 
   if (Platform.OS === 'android') {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,backgroundColor:'#602a61' }}>
         <Header navigation={navigation} showBack={true}  headingTitle={'Chat'}/>
-        <ImageBackground resizeMode="cover" source={require('./../assets/img/chat_back.jpg')} style={{ flex: 1 }}>
+        {/* <ImageBackground resizeMode="cover" source={require('./../assets/img/chat_back.jpg')} style={{ flex: 1, }}> */}
+
           <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={30} enabled>
             {chat}
           </KeyboardAvoidingView>
-        </ImageBackground>
+         
+        {/* </ImageBackground> */}
       </View>
     );
   }

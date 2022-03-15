@@ -27,7 +27,7 @@ const WallFeedsScreen = ({ navigation }) => {
             return (
               <View style={{ padding: 10 }} key={index} contentContainerStyle={{ flexGrow: 1 }}>
                 <TouchableOpacity>
-                  <Card style={{borderRadius:18,backgroundColor:'#784179'}}>
+                  <Card style={{borderRadius:14,backgroundColor:'#491849'}}>
                     <Card.Title
                       subtitle={feed.name}
                       subtitleStyle={GlobalStyle.cardsubtitlewallfeed}
@@ -43,9 +43,9 @@ const WallFeedsScreen = ({ navigation }) => {
                         />
                       )}
                     />
-                    {feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
+                    <View style={{marginLeft:20,marginRight:20,borderRadius:14,overflow:'hidden'}}>{feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}</View>
                     <Card.Content>
-                      <Title style={{fontFamily: 'Nunito',}}>{trimContent(feed.post)}</Title>
+                      <Title style={{fontFamily: 'Nunito',color:'#ffffff',fontSize:16,paddingLeft:12,}}>{trimContent(feed.post)}</Title>
                     </Card.Content>
                   </Card>
                 </TouchableOpacity>

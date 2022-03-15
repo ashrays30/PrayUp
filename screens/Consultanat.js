@@ -33,8 +33,7 @@ const Consultanat = ({ navigation }) => {
         .filter((r) => !r.type)
         .map((room, index) => {
           return (
-            <View style={{ paddingLeft: 8,paddingRight:8,marginBottom:10,}} key={index}>
-              {/* <Image source={require('./../assets/img/app_logo.png')}></Image> */}
+            <View  style={GlobalStyle.chatview} key={index}>
               <Card
                 onPress={() => {
                   navigation.navigate('Chat', { room: room });
@@ -42,6 +41,8 @@ const Consultanat = ({ navigation }) => {
                 style={GlobalStyle.cardcustom}
               >
                 <Card.Title
+                  title={room.userB.displayName}
+                  titleStyle={GlobalStyle.dtext}
                   subtitle={room.lastMessage.text}
                   subtitleStyle={GlobalStyle.cardsubtitle} 
                   left={() => (
@@ -68,7 +69,7 @@ const Consultanat = ({ navigation }) => {
     <ScrollView style={{ marginTop: 10 }}>
       {groups.map((group, index) => {
         return (
-          <View style={{ padding: 10 }} key={index}>
+          <View style={GlobalStyle.chatview} key={index}>
             <Card
               onPress={() => {
                 navigation.navigate('Chat', { room: group });
@@ -77,6 +78,7 @@ const Consultanat = ({ navigation }) => {
             >
               <Card.Title
                 title={group.groupName}
+                titleStyle={GlobalStyle.dtext}
                 subtitle={group.lastMessage ? group.lastMessage.text : ''}
                 subtitleStyle={GlobalStyle.cardsubtitle} 
                 left={() => (
@@ -170,7 +172,8 @@ const Consultanat = ({ navigation }) => {
               {
                 icon: require('./../assets/img/plus.png'),
                 label: 'Prayer for Health',
-                onPress: () => navigation.navigate('Chat'),
+                //onPress: () => navigation.navigate('Chat'),
+                onPress: () => navigation.navigate('QuestionAnswer'),
                 labelStyle:{backgroundColor:'#e7327c',},
                 labelTextColor:'white',
               },

@@ -49,7 +49,7 @@ const LandingPage = ({ navigation }) => {
       barStyle={{
         backgroundColor: '#e7327c',
         position: 'absolute',
-        bottom:6,
+        bottom:8,
         width:'95%',
         marginLeft:'2.5%',
         overflow: 'hidden',

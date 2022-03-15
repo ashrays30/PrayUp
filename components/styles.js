@@ -22,7 +22,7 @@ export const StyledContainer = {
 export const InnerContainer = {
   flex: 1,
   alignItems: 'center',
-  //justifyContent:'center',
+  justifyContent:'center',
 };
 
 // Welcome Page
@@ -30,7 +30,7 @@ export const InnerContainer = {
 export const WelcomePageImage = {
   //width: 300,
   height: 350,
-  marginTop: 50,
+  //marginTop: 50,
   width: '100%',
 };
 
@@ -75,8 +75,9 @@ export const PageTitle = {
 };
 
 export const TextBox = {
-  height: 40,
-  borderRadius: 10,
+  //height: 40,
+  borderRadius: 90,
+  marginBottom:6,
 };
 
 export const PageSubTitle = {

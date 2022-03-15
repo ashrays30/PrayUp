@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "913732199623",
+    "firebase_url": "https://pray-up-68e26-default-rtdb.firebaseio.com",
+    "project_id": "pray-up-68e26",
+    "storage_bucket": "pray-up-68e26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913732199623:android:500457913e108ad4574ae2",
+        "android_client_info": {
+          "package_name": "com.pray.prayup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913732199623-iq47bmse2vu97j9j7addn6ngo3bteqit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiDLDqyhe_Y-GLijxAO_55geJC_DsRJW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913732199623-iq47bmse2vu97j9j7addn6ngo3bteqit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

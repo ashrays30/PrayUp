@@ -20,12 +20,13 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ashrays30.prayup"
+      "package": "com.pray.prayup"
     },
     "web": {
       "favicon": "./assets/favicon.png"

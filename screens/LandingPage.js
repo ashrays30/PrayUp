@@ -5,6 +5,7 @@ import WallFeedsScreen from './WallFeeds';
 import Consultanat from './Consultanat';
 import ProfileScreen from './Profile';
 import { CenterText } from './../components/styles';
+import logo from '../assets/img/app_logo.svg';
 
 const LandingPage = ({ navigation }) => {
   const FeedsRoute = () => <WallFeedsScreen navigation={navigation} />;
@@ -21,7 +22,7 @@ const LandingPage = ({ navigation }) => {
   const [routes] = React.useState([
     { key: 'feeds', title: 'Today', icon: 'post-outline', color: '#FFFFFF' },
     { key: 'spritual', title: 'Flow', icon: 'meditation', color: '#FFFFFF' },
-    { key: 'consult', title: 'Pray Up', icon: require('./../assets/img/app_logo.svg'), color: '#FFFFFF'},
+    { key: 'consult', title: 'Pray Up', icon: 'account-group', color: '#FFFFFF' },
     { key: 'track', title: 'Track', icon: 'chart-areaspline', color: '#FFFFFF' },
     { key: 'profile', title: 'Profile', icon: 'account', color: '#FFFFFF' },
   ]);

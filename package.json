@@ -40,7 +40,8 @@
     "react-native-web": "^0.17.5",
     "styled-components": "^5.3.1",
     "uuid": "^8.3.2",
-    "expo-updates": "~0.8.2"
+    "expo-updates": "~0.8.2",
+    "expo-image-picker": "~10.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

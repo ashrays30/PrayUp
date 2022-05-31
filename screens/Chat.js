@@ -239,7 +239,7 @@ const ChatScreen = ({ route, navigation }) => {
                 marginLeft: 10,
                 marginTop: 10,
                 paddingRight: 20,
-                fontWeight: 'bold',
+                fontWeight: 'bold', 
                 fontSize:13,
                 color: props.position === 'right' ? '#ffc300' : '#ffc300',
               }}

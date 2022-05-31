@@ -200,12 +200,12 @@ const Login = ({ navigation }) => {
           <Button style={RegisterButton} mode="outlined" onPress={() => navigation.navigate('Register')}>
             Create Account
           </Button>
-          <Button
+          {/* <Button
             icon="google"
             mode="outlined"
             style={{marginTop: 10}}
             //onPress={() => GOOGLEsignIn1()}
-          >Sign In With Google</Button>
+          >Sign In With Google</Button> */}
           <View>
           {/* <Button title={'Sign in with Google'} onPress={() =>  {
     GoogleSignin.configure({

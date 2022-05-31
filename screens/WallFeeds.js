@@ -17,6 +17,18 @@ const WallFeedsScreen = ({ navigation }) => {
     return str;
   };
 
+  /**
+   * Check if th
+   * @param {string} URL
+   * @returns
+   */
+  const checkValidURL = (URL) => {
+    if (URL?.length > 0 && URL?.includes('https')) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <View>
       <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={false} />
@@ -28,7 +40,7 @@ const WallFeedsScreen = ({ navigation }) => {
                 <TouchableOpacity>
                   <Card>
                     <Card.Title
-                      subtitle={feed?.name ?? 'No Name'}
+                      subtitle={feed?.name ?? ''}
                       left={() => (
                         <Avatar.Text
                           size={35}
@@ -38,14 +50,16 @@ const WallFeedsScreen = ({ navigation }) => {
                               ?.join('')
                               ?.match(/(^\S|\S$)?/g)
                               ?.join('')
-                              ?.toUpperCase() ?? 'No Text'
+                              ?.toUpperCase() ?? ''
                           }
                         />
                       )}
                     />
-                    {feed?.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
+                    {checkValidURL(feed?.postImg ?? '') && <Card.Cover source={{ uri: feed.postImg }} />}
                     <Card.Content>
-                      <Title>{trimContent(feed?.post)}</Title>
+                      <Title>
+                        <Text>{trimContent(feed?.post ?? '')}</Text>
+                      </Title>
                     </Card.Content>
                   </Card>
                 </TouchableOpacity>

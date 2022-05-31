@@ -22,7 +22,7 @@ const LandingPage = ({ navigation }) => {
   const [routes] = React.useState([
     { key: 'feeds', title: 'Today', icon: 'post-outline', color: '#FFFFFF' },
     { key: 'spritual', title: 'Flow', icon: 'meditation', color: '#FFFFFF' },
-    { key: 'consult', title: 'Pray Up', icon: logo, color: '#FFFFFF' },
+    { key: 'consult', title: 'Pray Up', icon: 'account-group', color: '#FFFFFF' },
     { key: 'track', title: 'Track', icon: 'chart-areaspline', color: '#FFFFFF' },
     { key: 'profile', title: 'Profile', icon: 'account', color: '#FFFFFF' },
   ]);
@@ -39,8 +39,6 @@ const LandingPage = ({ navigation }) => {
     <BottomNavigation
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
-      renderScene={renderScene}
-    renderScene={renderScene} 
       renderScene={renderScene}
       activeColor={'#000000'}
       inactiveColor={'grey'}

@@ -20,7 +20,7 @@ const WallFeedsScreen = ({ navigation }) => {
   return (
     <View>
       <Header navigation={navigation} showBack={false} headingTitle={'Today'} feeds={false} />
-      <ScrollView style={{ marginBottom:92}}>
+      <ScrollView style={{ marginBottom: 92 }}>
         {posts &&
           posts.map((feed, index) => {
             return (
@@ -28,22 +28,24 @@ const WallFeedsScreen = ({ navigation }) => {
                 <TouchableOpacity>
                   <Card>
                     <Card.Title
-                      subtitle={feed.name}
+                      subtitle={feed?.name ?? 'No Name'}
                       left={() => (
                         <Avatar.Text
                           size={35}
-                          label={feed.name
-                            .match(/(\b\S)?/g)
-                            .join('')
-                            .match(/(^\S|\S$)?/g)
-                            .join('')
-                            .toUpperCase()}
+                          label={
+                            feed?.name
+                              ?.match(/(\b\S)?/g)
+                              ?.join('')
+                              ?.match(/(^\S|\S$)?/g)
+                              ?.join('')
+                              ?.toUpperCase() ?? 'No Text'
+                          }
                         />
                       )}
                     />
-                    {feed.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
+                    {feed?.postImg && <Card.Cover source={{ uri: feed.postImg }} />}
                     <Card.Content>
-                      <Title>{trimContent(feed.post)}</Title>
+                      <Title>{trimContent(feed?.post)}</Title>
                     </Card.Content>
                   </Card>
                 </TouchableOpacity>

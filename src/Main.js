@@ -14,6 +14,7 @@ import SplashScreen from '../screens/Splash';
 import LandingPageScreen from '../screens/LandingPage';
 import WallFeedPostScreen from '../screens/WallFeedsPost';
 import QuestionsScreen from '../screens/Questions';
+import QuestionAnswer from '../screens/QuestionAnswer'; // ADd Extra Screen
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ export default function Main() {
       if (value == null) {
         setTimeout(() => {
           setShowSplash(false);
-        }, 1000);
+        }, 7000);
         setUserLoginSession(false)
       } else {
         setShowSplash(false);
@@ -55,6 +56,7 @@ export default function Main() {
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="WallPost" component={WallFeedPostScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
+          <Stack.Screen name="QuestionAnswer" component={QuestionAnswer} />
         </Stack.Navigator>
       </NavigationContainer>
     );

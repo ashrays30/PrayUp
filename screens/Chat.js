@@ -21,6 +21,7 @@ import { getFirestore, collection, addDoc, onSnapshot, setDoc, updateDoc, doc, q
 import Header from './Header';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const auth = getAuth();
@@ -151,12 +152,17 @@ const ChatScreen = ({ route, navigation }) => {
       <InputToolbar
         {...props}
         containerStyle={{
-          backgroundColor: 'white',
-          borderTopColor: '#E8E8E8',
-          borderTopWidth: 1,
+          backgroundColor: '#ffffff',
+          // borderTopColor: '#E8E8E8',
+          // borderTopWidth: 1,
           borderRadius: 50,
           // width: "80%",
           padding: 0,
+          marginBottom:6,
+          //marginTop:10,
+          marginLeft:6,
+          marginRight:6,
+          //elevation:1,
         }}
       />
     );
@@ -164,9 +170,13 @@ const ChatScreen = ({ route, navigation }) => {
 
   const renderSend = (props) => {
     return (
-      <Send {...props}>
+      <Send {...props}
+      containerStyle={{
+        elevation:0,
+      }}
+      >
         <View>
-          <MaterialCommunityIcons name="send" style={{ marginBottom: 5, marginRight: 5 }} size={32} color="#2e64e5" />
+          <MaterialCommunityIcons name="send" style={{ marginBottom: 8, marginRight: 5, }} size={30} color="#ff7816" />
         </View>
       </Send>
     );
@@ -188,14 +198,14 @@ const ChatScreen = ({ route, navigation }) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#808080',
+            backgroundColor: '#491849',
             borderBottomRightRadius: 0,
             borderBottomLeftRadius: 15,
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
           },
           left: {
-            backgroundColor: '#F9F5F0',
+            backgroundColor: '#e7327c',
             borderBottomRightRadius: 15,
             borderBottomLeftRadius: 15,
             borderTopRightRadius: 15,
@@ -229,44 +239,47 @@ const ChatScreen = ({ route, navigation }) => {
                 marginLeft: 10,
                 marginTop: 10,
                 paddingRight: 20,
-                fontWeight: 'bold',
-                color: props.position === 'right' ? '#292929' : 'grey',
+                fontWeight: 'bold', 
+                fontSize:13,
+                color: props.position === 'right' ? '#ffc300' : '#ffc300',
               }}
             >
               {props.currentMessage.user.name}
             </Text>
-            <MessageText {...props} />
+            <MessageText {...props}/>
           </View>
         );
       }}
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}
       renderAvatar={renderAvatar}
-      // renderActions={(props) => (
-      //   <Actions
-      //     {...props}
-      //     containerStyle={{
-      //       position: 'absolute',
-      //       right: 50,
-      //       bottom: 5,
-      //       zIndex: 9999,
-      //     }}
-      //     onPressActionButton={() => {}}
-      //     icon={() => <Ionicons name="attach-outline" size={30} color={'#717171'} />}
-      //   />
-      // )}
+      renderActions={(props) => (
+        <Actions
+          {...props}
+          containerStyle={{
+            position: 'absolute',
+            right: 50,
+            bottom: 5,
+            zIndex: 9999,
+          }}
+          onPressActionButton={() => {}}
+          icon={() => <Ionicons name="attach-outline" size={30} color={'#717171'} />}
+        />
+      )}
     />
   );
 
   if (Platform.OS === 'android') {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,backgroundColor:'#602a61' }}>
         <Header navigation={navigation} showBack={true}  headingTitle={'Chat'}/>
-        <ImageBackground resizeMode="cover" source={require('./../assets/img/chat_back.jpg')} style={{ flex: 1 }}>
+        {/* <ImageBackground resizeMode="cover" source={require('./../assets/img/chat_back.jpg')} style={{ flex: 1, }}> */}
+
           <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={30} enabled>
             {chat}
           </KeyboardAvoidingView>
-        </ImageBackground>
+         
+        {/* </ImageBackground> */}
       </View>
     );
   }

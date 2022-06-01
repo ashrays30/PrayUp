@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 import { RegisterButton } from './../components/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GlobalStyle from '../components/GlobalStyles.js';
 
 const auth = getAuth();
 const ProfileScreen = ({ navigation }) => {

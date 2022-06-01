@@ -12,22 +12,26 @@ export const Colors = {
 
 export const StyledContainer = {
   flex: 1,
-  padding: 25,
-  paddingTop: 30,
-  backgroundColor: Colors.primary,
+  //padding: 25,
+  //paddingRight:25,
+  //paddingLeft:25,
+  //paddingTop: 0,
+  backgroundColor:'#491849',
 };
 
 export const InnerContainer = {
   flex: 1,
   alignItems: 'center',
+  justifyContent:'center',
 };
 
 // Welcome Page
 
 export const WelcomePageImage = {
-  width: 300,
+  //width: 300,
   height: 350,
-  marginTop: 50,
+  //marginTop: 50,
+  width: '100%',
 };
 
 export const WelcomeHeading = {
@@ -46,11 +50,12 @@ export const WelcomeDots = {
 
 export const WelcomeButton = {
   backgroundColor: Colors.WelcomeButton,
-  borderRadius: 10,
-  height: 40,
+  borderRadius: 20,
+  padding:4,
+  //height: 35,
   // justifyContent: 'center',
   width: 180,
-  marginTop: 20
+  marginTop: 20,
 };
 
 // Form Page (Login and Register)
@@ -70,8 +75,9 @@ export const PageTitle = {
 };
 
 export const TextBox = {
-  height: 40,
-  borderRadius: 10
+  //height: 40,
+  borderRadius: 90,
+  marginBottom:6,
 };
 
 export const PageSubTitle = {

@@ -25,7 +25,7 @@ const Welcome = ({ navigation }) => {
         `Life should not be boring. Connect with our worldwide praying community and find out how prayer is transforming lives, families and nations!`
     ]
 
-    const dotStyle = {color: "black"}
+    const dotStyle = {color: "#414a9a"}
 
     const imageList = [
         require("./../assets/img/Meditation_Icon_1.png"),
@@ -49,20 +49,22 @@ const Welcome = ({ navigation }) => {
       <StatusBar style="dark" />
       <View style={InnerContainer}>
         <Image
-          style={WelcomePageImage}
-          resizeMode="contain"
-          source={imageList[counter]}
-        />
-        <Text style={WelcomeHeading}>{headingList[counter]}</Text>
-        <Text>
+            style={WelcomePageImage}
+            resizeMode="contain"
+            source={imageList[counter]}
+          />
+        <View style={{backgroundColor:'#602a61',alignItems:'center',marginLeft:22,marginRight:22,borderRadius:18,}}>
+        <Text style={[WelcomeHeading,{color:'#ffcc00'}]}>{headingList[counter]}</Text>
+        <Text style={{color:'#ffffff',textAlign:'center',paddingLeft:12,paddingRight:12,marginBottom:24, }}>
             {textList[counter]}
         </Text>
+        </View>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           <Text style={{...WelcomeDots, ...(counter === 0 && dotStyle)}}>.</Text>
           <Text style={{...WelcomeDots, ...(counter === 1 && dotStyle)}}>.</Text>
           <Text style={{...WelcomeDots, ...(counter === 2 && dotStyle)}}>.</Text>
         </View>
-        <Button style={WelcomeButton} mode="contained" onPress={() => setCounterValue()}>
+        <Button style={[WelcomeButton,{backgroundColor:'#e7327c'}]} mode="contained" onPress={() => setCounterValue()}>
           {counter < 2 ? "Continue" : "Get Started"}
         </Button>
       </View>

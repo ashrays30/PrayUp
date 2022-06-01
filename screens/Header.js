@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Appbar, Menu } from 'react-native-paper';
+import GlobalStyle from '../components/GlobalStyles';
 
 const Header = ({ navigation, showBack, headingTitle, feeds }) => {
   const [visible, setVisible] = React.useState(false);
@@ -9,8 +10,8 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
 
   const closeMenu = () => setVisible(false);
   return (
-    <View>
-      <Appbar.Header style={{backgroundColor: "#F6F6F6"}}>
+    <View style={GlobalStyle.headercurve}>
+      <Appbar.Header style={GlobalStyle.bg_pink}>
         {showBack && (
           <Appbar.BackAction
             onPress={() => {
@@ -30,12 +31,12 @@ const Header = ({ navigation, showBack, headingTitle, feeds }) => {
         <View
           style={{
             flexDirection: 'row',
-            // justifyContent: 'right',
             zIndex: 20,
           }}
         >
           <Appbar.Action
             icon="bell"
+            color='#ffffff'
             onPress={() => {
               ;
             }}

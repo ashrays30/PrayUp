@@ -15,6 +15,7 @@ import {
   ForgotButton,
   errorCode,
 } from './../components/styles';
+import GlobalStyle from '../components/GlobalStyles.js';
 
 import { Image, Text, View } from 'react-native';
 
@@ -55,10 +56,10 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={StyledContainer}>
+    <View style={[StyledContainer,{backgroundColor:'#ffffff'}]}>
       <StatusBar style="dark" />
       <View style={InnerContainer}>
-        <Image style={PageLogo} resizeMode="cover" source={require('./../assets/img/app_logo.png')} />
+      <Image style={[PageLogo,{width:130,resizeMode:'contain'}]} resizeMode="cover" source={require('./../assets/img/app_logo.png')} />
         <Text style={PageSubTitle}>Login Into Your Pray Up Account</Text>
         <View style={{ width: '100%' }}>
           <TextInput
@@ -67,7 +68,11 @@ const Login = ({ navigation }) => {
             label="Name"
             value={name}
             onChangeText={(text) => setName(text)}
-            style={TextBox}
+            //style={TextBox}
+            style={[GlobalStyle.input,{marginLeft:18,marginRight:18,}]}
+            inputStyle={GlobalStyle.inputStyle}
+            labelStyle={GlobalStyle.labelStyle}
+            placeholderStyle={GlobalStyle.placeholderStyle}
           />
           <TextInput
             left={<TextInput.Icon name="email" size={25} />}
@@ -75,7 +80,11 @@ const Login = ({ navigation }) => {
             label="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
-            style={TextBox}
+            //style={TextBox}
+            style={[GlobalStyle.input,{marginLeft:18,marginRight:18,}]}
+            inputStyle={GlobalStyle.inputStyle}
+            labelStyle={GlobalStyle.labelStyle}
+            placeholderStyle={GlobalStyle.placeholderStyle}
           />
           <TextInput
             left={<TextInput.Icon name="lock" size={25} />}
@@ -84,7 +93,11 @@ const Login = ({ navigation }) => {
             secureTextEntry={true}
             value={pass}
             onChangeText={(text) => setPass(text)}
-            style={TextBox}
+            //style={TextBox}
+            style={[GlobalStyle.input,{marginLeft:18,marginRight:18,}]}
+            inputStyle={GlobalStyle.inputStyle}
+            labelStyle={GlobalStyle.labelStyle}
+            placeholderStyle={GlobalStyle.placeholderStyle}
           />
           <TextInput
             left={<TextInput.Icon name="key" size={25} />}
@@ -93,7 +106,11 @@ const Login = ({ navigation }) => {
             secureTextEntry={true}
             value={pass}
             onChangeText={(text) => setPass(text)}
-            style={TextBox}
+            //style={TextBox}
+            style={[GlobalStyle.input,{marginLeft:18,marginRight:18,}]}
+            inputStyle={GlobalStyle.inputStyle}
+            labelStyle={GlobalStyle.labelStyle}
+            placeholderStyle={GlobalStyle.placeholderStyle}
           />
           <TextInput
             left={<TextInput.Icon name="phone" size={25} />}
@@ -101,7 +118,11 @@ const Login = ({ navigation }) => {
             label="Phone Number"
             value={phone}
             onChangeText={(text) => setPhone(text)}
-            style={TextBox}
+            //style={TextBox}
+            style={[GlobalStyle.input,{marginLeft:18,marginRight:18,}]}
+            inputStyle={GlobalStyle.inputStyle}
+            labelStyle={GlobalStyle.labelStyle}
+            placeholderStyle={GlobalStyle.placeholderStyle}
           />
           <Button style={RegisterButton} mode="outlined" onPress={() => registerUser()}>
             Create Account
